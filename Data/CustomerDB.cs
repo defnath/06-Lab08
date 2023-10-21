@@ -58,16 +58,18 @@ namespace Data
             {
                 connection.Open();
 
-                using (SqlCommand cmd = new SqlCommand("InsertCustomer", connection))
+                using (SqlCommand command = new SqlCommand("InsertCustomer", connection))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
 
-                    // Aquí debes definir los parámetros del procedimiento almacenado
-                    cmd.Parameters.AddWithValue("@name", Customer.Name);
-                    cmd.Parameters.AddWithValue("@address", Customer.Address);
-                    cmd.Parameters.AddWithValue("@phone", Customer.Phone);
+                    command.Parameters.Add(new SqlParameter("@name", Customer.Name));
+                    command.Parameters.Add(new SqlParameter("@address", Customer.Address));
+                    command.Parameters.Add(new SqlParameter("@phone", Customer.Phone));
 
-                    try
+                    command.ExecuteNonQuery();
+                }
+
+                try
                     {
                         int rowsAffected = cmd.ExecuteNonQuery();
                         return rowsAffected > 0;
@@ -76,9 +78,8 @@ namespace Data
                     {
                         return false;
                     }
-                }
+
             }
         }
-
     }
 }
