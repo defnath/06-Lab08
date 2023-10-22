@@ -38,7 +38,7 @@ namespace WpfApp1
             List<Customer> customers = customerBusiness.GetCustomersByName(customerName);
 
             // Asigna los resultados al ListView
-            ListViewResultados.ItemsSource = customers;
+            ListViewCustomers.ItemsSource = customers;
         }
     }
 }

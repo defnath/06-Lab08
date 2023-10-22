@@ -50,9 +50,8 @@ namespace Data
             return customerDataAccess.ListCustomers();
         }
         
-        
-        
-        public List<Customer> InsertCustomer()
+                
+        public void InsertCustomer(Customer customer)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -62,23 +61,46 @@ namespace Data
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
-                    command.Parameters.Add(new SqlParameter("@name", Customer.Name));
-                    command.Parameters.Add(new SqlParameter("@address", Customer.Address));
-                    command.Parameters.Add(new SqlParameter("@phone", Customer.Phone));
+                    command.Parameters.Add(new SqlParameter("@name", customer.Name));
+                    command.Parameters.Add(new SqlParameter("@address", customer.Address));
+                    command.Parameters.Add(new SqlParameter("@phone", customer.Phone));
 
                     command.ExecuteNonQuery();
                 }
+            }
+        }
+        public void UpdateCustomer(Customer customer)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
 
-                try
-                    {
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        return rowsAffected > 0;
-                    }
-                    catch (SqlException ex)
-                    {
-                        return false;
-                    }
+                using (SqlCommand command = new SqlCommand("UpdateCustomer", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
 
+                    command.Parameters.Add(new SqlParameter("@name", customer.Name));
+                    command.Parameters.Add(new SqlParameter("@address", customer.Address));
+                    command.Parameters.Add(new SqlParameter("@phone", customer.Phone));
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        public void DeleteCustomer(int customer)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand("DeleteCustomer", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add(new SqlParameter("@customer_id", customer));
+
+                    command.ExecuteNonQuery();
+                }
             }
         }
     }
