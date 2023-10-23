@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace WpfApp1
 {
@@ -38,6 +39,60 @@ namespace WpfApp1
             List<Customer> customers = customerBusiness.GetCustomersByName(customerName);
 
             // Asigna los resultados al ListView
+            ListViewCustomers.ItemsSource = customers;
+        }
+
+        private void InsertarClientePorNombre_Click(object sender, RoutedEventArgs e)
+        {
+            string customerName = txtName.Text;
+            string address = txtAddress.Text;
+            string phone = txtPhone.Text;
+
+            Customer newCustomer = new Customer
+            {
+                Name = customerName,
+                Address = address,
+                Phone = phone,
+            };
+
+            customerBusiness.InsertCustomer(newCustomer);
+
+            RefreshDataGrid();
+        }
+
+        private void ActualizarClientePorNombre_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewCustomers.SelectedItem is Customer CustomerUpdate)
+            {
+                string updatedName = txtName.Text;
+                string updatedAddress = txtAddress.Text;
+                string updatedPhone = txtPhone.Text;
+
+                CustomerUpdate.Name = updatedName;
+                CustomerUpdate.Address = updatedAddress;
+                CustomerUpdate.Phone = updatedPhone;
+
+                customerBusiness.UpdateCustomer(CustomerUpdate);
+
+                RefreshDataGrid();
+            }
+        }
+
+        private void EliminarClientePorNombre_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewCustomers.SelectedItem is Customer selectedCustomer)
+            {
+                customerBusiness.Delete(selectedCustomer.Id);
+
+                RefreshDataGrid();
+            }
+        }
+
+        private void RefreshDataGrid()
+        {
+            string searchName = TextBoxNombreCliente.Text;
+            List<Customer> customers = customerBusiness.GetCustomersByName(searchName);
+
             ListViewCustomers.ItemsSource = customers;
         }
     }
