@@ -33,7 +33,7 @@ namespace Business
             data.UpdateCustomer(customer);
         }
 
-        public void Delete(int customer_id)
+        public void DeleteCustomer(int customer_id)
         {
             CustomerDB data = new CustomerDB();
             data.DeleteCustomer(customer_id);

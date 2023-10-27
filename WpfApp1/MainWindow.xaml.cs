@@ -64,13 +64,17 @@ namespace WpfApp1
         {
             if (ListViewCustomers.SelectedItem is Customer CustomerUpdate)
             {
+                int updatedId = Convert.ToInt32(txtId.Text);
                 string updatedName = txtName.Text;
                 string updatedAddress = txtAddress.Text;
                 string updatedPhone = txtPhone.Text;
+                bool updatedActive = chkActive.IsChecked ?? false;
 
+                CustomerUpdate.Id = updatedId;
                 CustomerUpdate.Name = updatedName;
                 CustomerUpdate.Address = updatedAddress;
                 CustomerUpdate.Phone = updatedPhone;
+                CustomerUpdate.Active = updatedActive;
 
                 customerBusiness.UpdateCustomer(CustomerUpdate);
 
@@ -82,7 +86,7 @@ namespace WpfApp1
         {
             if (ListViewCustomers.SelectedItem is Customer selectedCustomer)
             {
-                customerBusiness.Delete(selectedCustomer.Id);
+                customerBusiness.DeleteCustomer(selectedCustomer.Id);
 
                 RefreshDataGrid();
             }

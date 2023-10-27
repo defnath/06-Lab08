@@ -11,7 +11,7 @@ namespace Data
 {
     public class CustomerDB
     {
-        private string connectionString = "Data Source=LAB1504-09\\SQLEXPRESS;Initial Catalog=FacturaDB;User ID=tecsup;Password=tecsup";
+        private string connectionString = "Data Source=DESKTOP-GRUDL8S;Initial Catalog=FacturaDB;User ID=tecsup;Password=tecsup";
         public List<Customer> ListCustomers()
         {
             List<Customer> customers = new List<Customer>();
@@ -49,23 +49,23 @@ namespace Data
             CustomerDB customerDataAccess = new CustomerDB();
             return customerDataAccess.ListCustomers();
         }
-        
-                
+
+
         public void InsertCustomer(Customer customer)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand("InsertCustomer", connection))
+                using (SqlCommand cmd = new SqlCommand("InsertCustomer", connection))
                 {
-                    command.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    command.Parameters.Add(new SqlParameter("@name", customer.Name));
-                    command.Parameters.Add(new SqlParameter("@address", customer.Address));
-                    command.Parameters.Add(new SqlParameter("@phone", customer.Phone));
+                    cmd.Parameters.Add(new SqlParameter("@name", customer.Name));
+                    cmd.Parameters.Add(new SqlParameter("@address", customer.Address));
+                    cmd.Parameters.Add(new SqlParameter("@phone", customer.Phone));
 
-                    command.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
@@ -75,15 +75,17 @@ namespace Data
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand("UpdateCustomer", connection))
+                using (SqlCommand cmd = new SqlCommand("UpdateCustomer", connection))
                 {
-                    command.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    command.Parameters.Add(new SqlParameter("@name", customer.Name));
-                    command.Parameters.Add(new SqlParameter("@address", customer.Address));
-                    command.Parameters.Add(new SqlParameter("@phone", customer.Phone));
+                    cmd.Parameters.Add(new SqlParameter("@customer_id", customer.Id));
+                    cmd.Parameters.Add(new SqlParameter("@name", customer.Name));
+                    cmd.Parameters.Add(new SqlParameter("@address", customer.Address));
+                    cmd.Parameters.Add(new SqlParameter("@phone", customer.Phone));
+                    cmd.Parameters.Add(new SqlParameter("@active", customer.Active));
 
-                    command.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
@@ -93,13 +95,13 @@ namespace Data
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand("DeleteCustomer", connection))
+                using (SqlCommand cmd = new SqlCommand("DeleteCustomer", connection))
                 {
-                    command.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    command.Parameters.Add(new SqlParameter("@customer_id", customer));
+                    cmd.Parameters.AddWithValue("@customer_id", Id);
 
-                    command.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

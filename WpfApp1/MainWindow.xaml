@@ -19,22 +19,27 @@
                         <GridViewColumn Header="Nombre" Width="100" DisplayMemberBinding="{Binding Name}"/>
                         <GridViewColumn Header="Address" Width="100" DisplayMemberBinding="{Binding Address}"/>
                         <GridViewColumn Header="Phone" Width="70" DisplayMemberBinding="{Binding Phone}"/>
+                        <GridViewColumn Header="Active" Width="40" DisplayMemberBinding="{Binding Active}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
 
             <StackPanel Grid.Row="3" Margin="10">
                 <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="ID del Cliente:"/>
+                    <TextBox x:Name="txtId" Width="250"/>
                     <TextBlock Text="Nombre del Cliente:"/>
                     <TextBox x:Name="txtName" Width="250"/>
-                    <TextBlock Text="Dirección:"/>
+                    <TextBlock Text="DirecciÃ³n:"/>
                     <TextBox x:Name="txtAddress" Width="250"/>
                     <TextBlock Text="Celular:"/>
                     <TextBox x:Name="txtPhone" Width="250"/>
+                    <TextBlock Text="Activo:"/>
+                    <CheckBox x:Name="chkActive"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Content="Insertar" Width="70" Click="InsertarClientePorNombre_Click" Margin="0 10 10 0" />
-                    <Button Content="Actualizar" Width="70" Click="ActulizarClientePorNombre_Click" Margin="0 10 10 0" />
+                    <Button Content="Actualizar" Width="70" Click="ActualizarClientePorNombre_Click" Margin="0 10 10 0" />
                     <Button Content="Eliminar" Width="70" Click="EliminarClientePorNombre_Click" Margin="0 10 0 0" />
                 </StackPanel>
             </StackPanel>
