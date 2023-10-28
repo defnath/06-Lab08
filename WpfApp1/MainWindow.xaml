@@ -30,7 +30,7 @@
                     <TextBox x:Name="txtId" Width="250"/>
                     <TextBlock Text="Nombre del Cliente:"/>
                     <TextBox x:Name="txtName" Width="250"/>
-                    <TextBlock Text="DirecciÃ³n:"/>
+                    <TextBlock Text="Dirección:"/>
                     <TextBox x:Name="txtAddress" Width="250"/>
                     <TextBlock Text="Celular:"/>
                     <TextBox x:Name="txtPhone" Width="250"/>

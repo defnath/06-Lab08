@@ -11,7 +11,7 @@ namespace Data
 {
     public class CustomerDB
     {
-        private string connectionString = "Data Source=DESKTOP-GRUDL8S;Initial Catalog=FacturaDB;User ID=tecsup;Password=tecsup";
+        private string connectionString = "Data Source=LAB1504-01\\SQLEXPRESS;Initial Catalog=FacturaDB;User ID=tecsup;Password=tecsup";
         public List<Customer> ListCustomers()
         {
             List<Customer> customers = new List<Customer>();
@@ -99,7 +99,7 @@ namespace Data
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@customer_id", Id);
+                    cmd.Parameters.AddWithValue("@customer_id", customer);
 
                     cmd.ExecuteNonQuery();
                 }
